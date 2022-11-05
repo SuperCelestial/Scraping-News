@@ -1,1 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data News</title>
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div
+      class="bottom-6 m-auto relative"
+      id="container"
+      style="width: 614px; height: 700px"
+    >
+      <img src="" id="bg1" width="614px" height="700px" />
+      <span
+        class="font-sans text-xs absolute text-white whitespace-pre-line text-justify"
+        id="News"
+        style="width: 450px; top: 90px; left: 90px; line-height: 3em"
+      >
+        {{News|safe}}
+      </span>
+    </div>
+    <div
+      id="canvasWrapper"
+      class="mb-10 w-screen flex justify-center items-center"
+    >
+      <button
+        class="text-white p-3 rounded-md font-serif text-xl bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500"
+        onclick="download()"
+      >
+        Download the Post
+      </button>
+    </div>
 
+    <script>
+      var newbg = document.getElementById("bg1");
+      var background = new Image();
+      background.src =
+        "static/image/" + (Math.floor(Math.random() * 6) + 1) + ".png";
+      newbg.src = background.src;
+      console.log(newbg.src);
+    </script>
+
+    <script src="/static/js/h2c.min.js"></script>
+    <script>
+      function download() {
+        html2canvas(document.getElementById("container"), {
+          height: 614,
+          width: 614,
+        }).then((canvas) => {
+          var a = document.createElement("a");
+          a.href = canvas
+            .toDataURL("image/jpeg")
+            .replace("image/jpeg", "image/octet-stream");
+          a.download = "yourdatanews.jpg";
+          a.click();
+        });
+      }
+    </script>
+  </body>
+</html>
